@@ -6,6 +6,7 @@ import * as THREE from "three";
 /* A glowing golden cross standing centre-stage */
 function GlowCross() {
   const group = useRef();
+  const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
   useFrame((state) => {
     if (group.current) {
       group.current.rotation.y = Math.sin(state.clock.elapsedTime * 0.15) * 0.25;
@@ -15,13 +16,13 @@ function GlowCross() {
     <meshStandardMaterial
       color="#D4AF37"
       emissive="#E5B94E"
-      emissiveIntensity={0.7}
+      emissiveIntensity={0.5}
       metalness={0.9}
       roughness={0.25}
     />
   );
   return (
-    <group ref={group} position={[0, 0.4, 0]}>
+    <group ref={group} position={[0, isMobile ? 1.1 : 0.4, 0]} scale={isMobile ? 0.7 : 1}>
       <Float speed={1.4} rotationIntensity={0.15} floatIntensity={0.6}>
         {/* vertical beam */}
         <mesh castShadow position={[0, 0, 0]}>
@@ -36,7 +37,7 @@ function GlowCross() {
         {/* halo ring */}
         <mesh position={[0, 0.8, -0.4]} rotation={[0, 0, 0]}>
           <torusGeometry args={[1.5, 0.03, 16, 80]} />
-          <meshStandardMaterial color="#E5B94E" emissive="#E5B94E" emissiveIntensity={2} toneMapped={false} />
+          <meshStandardMaterial color="#E5B94E" emissive="#E5B94E" emissiveIntensity={1.2} toneMapped={false} />
         </mesh>
       </Float>
     </group>
@@ -80,10 +81,11 @@ function Stage() {
 function SceneContent() {
   const spot = useRef();
   const target = useMemo(() => new THREE.Object3D(), []);
+  const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
   return (
     <>
-      <PerspectiveCamera makeDefault position={[0, 1.5, 8]} fov={45} />
-      <fog attach="fog" args={["#0A0A0A", 8, 20]} />
+      <PerspectiveCamera makeDefault position={[0, 1.5, isMobile ? 11.5 : 8]} fov={45} />
+      <fog attach="fog" args={["#0A0A0A", isMobile ? 11 : 8, 22]} />
       <ambientLight intensity={0.12} />
       <primitive object={target} position={[0, 0.4, 0]} />
       <spotLight
@@ -91,7 +93,7 @@ function SceneContent() {
         position={[0, 9, 3]}
         angle={0.42}
         penumbra={0.9}
-        intensity={90}
+        intensity={70}
         distance={30}
         color="#FFE9B0"
         castShadow

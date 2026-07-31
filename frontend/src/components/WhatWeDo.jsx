@@ -83,7 +83,7 @@ export default function WhatWeDo() {
         {tab === "video" && (
           <div className="mt-16">
             <FadeUp>
-              <p className="text-[#A09C95] max-w-2xl mb-10">Bite-sized cinematic drama for the screen. Our short-episode series carries the theatre online \u2014 new drops coming soon.</p>
+              <p className="text-[#A09C95] max-w-2xl mb-10">Bite-sized cinematic drama for the screen. Our short-episode series carries the theatre online — new drops coming soon.</p>
             </FadeUp>
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
               {EPISODES.map((e, i) => (

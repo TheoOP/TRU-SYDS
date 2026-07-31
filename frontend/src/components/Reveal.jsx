@@ -33,15 +33,15 @@ export const FadeUp = ({ children, className = "", delay = 0, y = 40 }) => (
 );
 
 export const RevealLine = ({ children, className = "", delay = 0 }) => (
-  <span style={{ display: "block", overflow: "hidden" }}>
+  <span className="block overflow-hidden pb-[0.1em]">
     <motion.span
-      style={{ display: "block" }}
-      initial={{ y: "110%" }}
-      whileInView={{ y: "0%" }}
-      viewport={{ once: true, margin: "-60px" }}
-      transition={{ duration: 0.85, delay, ease: [0.22, 1, 0.36, 1] }}
+      className={`block ${className}`}
+      initial={{ opacity: 0, y: 55 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-80px" }}
+      transition={{ duration: 0.8, delay, ease: [0.22, 1, 0.36, 1] }}
     >
-      <span className={className}>{children}</span>
+      {children}
     </motion.span>
   </span>
 );

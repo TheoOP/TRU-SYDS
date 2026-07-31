@@ -20,7 +20,7 @@ export default function AdinkraSection() {
           </p>
         </FadeUp>
         <h2 className="font-display font-bold text-[#F5F2EB] text-4xl sm:text-5xl lg:text-6xl tracking-tight max-w-4xl leading-[1.05]">
-          <RevealLine>Adinkra \u2014 the ancient</RevealLine>
+          <RevealLine>Adinkra — the ancient</RevealLine>
           <RevealLine delay={0.08} className="italic text-[#D4AF37]">language of leadership.</RevealLine>
         </h2>
         <FadeUp delay={0.1}>

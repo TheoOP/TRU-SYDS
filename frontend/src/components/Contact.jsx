@@ -95,7 +95,7 @@ export default function Contact() {
                     name="message" required rows={5} value={form.message} onChange={change}
                     data-testid="contact-message"
                     className="w-full bg-[#0A0A0A] border border-[rgba(212,175,55,0.22)] rounded-xl px-4 py-3 text-[#F5F2EB] placeholder:text-[#6b665e] focus:outline-none focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37] transition-colors resize-none"
-                    placeholder="Tell us what's on your heart\u2026"
+                    placeholder="Tell us what's on your heart…"
                   />
                 </div>
                 <button
