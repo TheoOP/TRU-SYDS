@@ -1,27 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import { motion } from "framer-motion";
 import { FadeUp, RevealLine } from "./Reveal";
-import { startCheckout } from "../lib/api";
-import { Calendar, MapPin, Clock, Ticket, Minus, Plus, Loader2 } from "lucide-react";
-import { toast } from "sonner";
+import { Calendar, MapPin, Clock, Phone } from "lucide-react";
 
 const EVENT_IMG = "https://images.unsplash.com/photo-1674056982817-4f69b8352103?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA2MDV8MHwxfHNlYXJjaHwyfHxjaW5lbWF0aWMlMjBnbG93aW5nJTIwY3Jvc3MlMjBzdGFnZXxlbnwwfHx8fDE3ODU0NjIxNzV8MA&ixlib=rb-4.1.0&q=85";
 
 export default function FeaturedEvent() {
-  const [qty, setQty] = useState(1);
-  const [loading, setLoading] = useState(false);
-
-  const buy = async () => {
-    setLoading(true);
-    try {
-      const { checkout_url } = await startCheckout("ticket_hotc", qty);
-      window.location.href = checkout_url;
-    } catch (e) {
-      toast.error("Could not start checkout. Please try again.");
-      setLoading(false);
-    }
-  };
-
   return (
     <section id="event" className="relative py-24 md:py-36 px-5 sm:px-8 bg-[#7E121D] overflow-hidden">
       {/* dark cinematic overlay */}
@@ -74,35 +58,21 @@ export default function FeaturedEvent() {
             </div>
           </FadeUp>
 
-          {/* ticket purchase */}
+          {/* ticket CTA — call to book */}
           <FadeUp delay={0.2}>
-            <div className="mt-10 p-6 md:p-7 bg-black/40 backdrop-blur-xl border border-[#D4AF37]/30 rounded-2xl">
-              <div className="flex items-center justify-between flex-wrap gap-5">
-                <div>
-                  <p className="text-xs tracking-[0.2em] uppercase text-[#D4AF37] mb-1">General Admission</p>
-                  <p className="font-display text-4xl font-black text-[#F5F2EB]">$30<span className="text-lg text-[#F5F2EB]/60 font-body font-normal"> / ticket</span></p>
-                </div>
-                <div className="flex items-center gap-4 bg-black/50 rounded-full border border-[#D4AF37]/30 px-2 py-1.5">
-                  <button data-testid="qty-minus" onClick={() => setQty((q) => Math.max(1, q - 1))} className="w-9 h-9 rounded-full flex items-center justify-center text-[#D4AF37] hover:bg-[#D4AF37]/10" aria-label="decrease">
-                    <Minus size={16} />
-                  </button>
-                  <span data-testid="qty-value" className="font-display text-2xl font-bold text-[#F5F2EB] w-6 text-center">{qty}</span>
-                  <button data-testid="qty-plus" onClick={() => setQty((q) => Math.min(20, q + 1))} className="w-9 h-9 rounded-full flex items-center justify-center text-[#D4AF37] hover:bg-[#D4AF37]/10" aria-label="increase">
-                    <Plus size={16} />
-                  </button>
-                </div>
+            <div className="mt-10 p-6 md:p-7 bg-black/40 backdrop-blur-xl border border-[#D4AF37]/30 rounded-2xl flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+              <div>
+                <p className="text-xs tracking-[0.2em] uppercase text-[#D4AF37] mb-1">General Admission</p>
+                <p className="font-display text-4xl font-black text-[#F5F2EB]">$30<span className="text-lg text-[#F5F2EB]/60 font-body font-normal"> / ticket</span></p>
               </div>
-              <motion.button
+              <motion.a
                 whileTap={{ scale: 0.98 }}
-                onClick={buy}
-                disabled={loading}
-                data-testid="buy-tickets-btn"
-                className="mt-6 w-full flex items-center justify-center gap-2 bg-[#D4AF37] text-black font-bold text-lg py-4 rounded-full hover:bg-[#E5B94E] transition-colors disabled:opacity-60"
+                href="tel:7034755322"
+                data-testid="call-tickets-btn"
+                className="inline-flex items-center justify-center gap-2 bg-[#D4AF37] text-black font-bold text-lg px-8 py-4 rounded-full hover:bg-[#E5B94E] transition-colors"
               >
-                {loading ? <Loader2 className="animate-spin" size={20} /> : <Ticket size={20} />}
-                {loading ? "Redirecting to secure checkout\u2026" : `Buy ${qty} Ticket${qty > 1 ? "s" : ""} \u2014 $${qty * 30}`}
-              </motion.button>
-              <p className="text-center text-xs text-[#F5F2EB]/55 mt-3">Secure payment via Stripe &middot; Card &amp; wallets accepted</p>
+                <Phone size={20} /> Call for Tickets &mdash; 703-475-5322
+              </motion.a>
             </div>
           </FadeUp>
         </div>

@@ -1,16 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { motion } from "framer-motion";
 import { FadeUp, RevealLine } from "./Reveal";
-import { startCheckout, subscribeNewsletter } from "../lib/api";
-import { Heart, HandCoins, Users2, PenTool, Loader2, Mail, GraduationCap, Handshake } from "lucide-react";
-import { toast } from "sonner";
-
-const TIERS = [
-  { key: "donate_25", amount: 25 },
-  { key: "donate_50", amount: 50 },
-  { key: "donate_100", amount: 100, popular: true },
-  { key: "donate_250", amount: 250 },
-];
+import { HandCoins, Users2, PenTool, Phone, MapPin, GraduationCap, Handshake } from "lucide-react";
 
 const WAYS = [
   { icon: HandCoins, title: "Donate", desc: "Fund productions, scholarships and youth programs." },
@@ -26,36 +17,6 @@ const OUTREACH = [
 ];
 
 export default function GetInvolved() {
-  const [donating, setDonating] = useState(null);
-  const [email, setEmail] = useState("");
-  const [subLoading, setSubLoading] = useState(false);
-
-  const donate = async (tier) => {
-    setDonating(tier.key);
-    try {
-      const { checkout_url } = await startCheckout(tier.key, 1);
-      window.location.href = checkout_url;
-    } catch {
-      toast.error("Could not start donation checkout.");
-      setDonating(null);
-    }
-  };
-
-  const subscribe = async (e) => {
-    e.preventDefault();
-    if (!email) return;
-    setSubLoading(true);
-    try {
-      const { data } = await subscribeNewsletter(email);
-      toast.success(data.already_subscribed ? "You're already on the list \u2014 thank you!" : "Welcome to the TRU SYDS circle.");
-      setEmail("");
-    } catch {
-      toast.error("Please enter a valid email.");
-    } finally {
-      setSubLoading(false);
-    }
-  };
-
   return (
     <section id="involved" className="relative py-24 md:py-36 px-5 sm:px-8 bg-[#0C0B0A]">
       <div className="max-w-[1400px] mx-auto">
@@ -85,65 +46,35 @@ export default function GetInvolved() {
           })}
         </div>
 
-        {/* donation + newsletter */}
-        <div className="mt-8 grid lg:grid-cols-[1.3fr_1fr] gap-6">
-          {/* donate */}
-          <FadeUp className="h-full">
-            <div className="h-full border border-[rgba(212,175,55,0.2)] bg-gradient-to-br from-[#121010] to-[#0A0A0A] p-8 md:p-10 rounded-2xl">
-              <div className="flex items-center gap-3 mb-2">
-                <Heart className="text-[#D4AF37]" size={22} fill="currentColor" />
-                <h3 className="font-display text-2xl md:text-3xl font-bold text-[#F5F2EB]">Make a Donation</h3>
-              </div>
-              <p className="text-[#A09C95] mb-8 max-w-md">Every gift keeps Black theatre living, breathing and reaching the next generation.</p>
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                {TIERS.map((t) => (
-                  <button
-                    key={t.key}
-                    data-testid={`donate-${t.amount}`}
-                    onClick={() => donate(t)}
-                    disabled={donating !== null}
-                    className={`relative py-6 rounded-xl border font-display text-2xl font-bold transition-all disabled:opacity-60 ${
-                      t.popular ? "border-[#D4AF37] bg-[#D4AF37]/10 text-[#D4AF37]" : "border-[rgba(212,175,55,0.25)] text-[#F5F2EB] hover:border-[#D4AF37] hover:text-[#D4AF37]"
-                    }`}
-                  >
-                    {donating === t.key ? <Loader2 className="animate-spin mx-auto" size={22} /> : <>${t.amount}</>}
-                    {t.popular && <span className="absolute -top-2.5 left-1/2 -translate-x-1/2 text-[9px] tracking-widest uppercase bg-[#D4AF37] text-black px-2 py-0.5 rounded-full">Popular</span>}
-                  </button>
-                ))}
-              </div>
-              <p className="text-xs text-[#A09C95] mt-4">Secure one-time donation via Stripe.</p>
+        {/* support CTA */}
+        <FadeUp>
+          <div className="mt-8 border border-[rgba(212,175,55,0.2)] bg-gradient-to-br from-[#121010] to-[#0A0A0A] p-8 md:p-12 rounded-2xl flex flex-col lg:flex-row lg:items-center justify-between gap-8">
+            <div className="max-w-xl">
+              <h3 className="font-display text-2xl md:text-3xl font-bold text-[#F5F2EB] mb-3">Want to support or collaborate?</h3>
+              <p className="text-[#A09C95] leading-relaxed">
+                Every gift, partnership and volunteer keeps Black theatre living and reaching the next generation. Reach out and let&rsquo;s talk about how you can be part of the story.
+              </p>
             </div>
-          </FadeUp>
-
-          {/* newsletter */}
-          <FadeUp delay={0.1} className="h-full">
-            <div className="h-full border border-[rgba(212,175,55,0.2)] bg-[#121010] p-8 md:p-10 rounded-2xl flex flex-col justify-center">
-              <Mail className="text-[#D4AF37] mb-5" size={26} strokeWidth={1.5} />
-              <h3 className="font-display text-2xl md:text-3xl font-bold text-[#F5F2EB] mb-2">Join the Circle</h3>
-              <p className="text-[#A09C95] mb-6">Show announcements, episode drops & behind-the-curtain stories.</p>
-              <form onSubmit={subscribe} className="space-y-3">
-                <input
-                  type="email"
-                  required
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="you@email.com"
-                  data-testid="newsletter-email"
-                  className="w-full bg-[#0A0A0A] border border-[rgba(212,175,55,0.25)] rounded-full px-5 py-3.5 text-[#F5F2EB] placeholder:text-[#6b665e] focus:outline-none focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37] transition-colors"
-                />
-                <button
-                  type="submit"
-                  disabled={subLoading}
-                  data-testid="newsletter-submit"
-                  className="w-full flex items-center justify-center gap-2 bg-[#D4AF37] text-black font-semibold py-3.5 rounded-full hover:bg-[#E5B94E] transition-colors disabled:opacity-60"
-                >
-                  {subLoading ? <Loader2 className="animate-spin" size={18} /> : null}
-                  Subscribe
-                </button>
-              </form>
+            <div className="flex flex-col sm:flex-row gap-3 shrink-0">
+              <motion.a
+                whileTap={{ scale: 0.98 }}
+                href="tel:7034755322"
+                data-testid="involved-call-btn"
+                className="inline-flex items-center justify-center gap-2 bg-[#D4AF37] text-black font-semibold px-7 py-4 rounded-full hover:bg-[#E5B94E] transition-colors"
+              >
+                <Phone size={18} /> 703-475-5322
+              </motion.a>
+              <a
+                href="https://maps.google.com/?q=1196+Deansway+Dr+Pataskala+OH+43062"
+                target="_blank" rel="noreferrer"
+                data-testid="involved-directions-btn"
+                className="inline-flex items-center justify-center gap-2 border border-[#D4AF37]/60 text-[#D4AF37] px-7 py-4 rounded-full hover:bg-[#D4AF37]/10 transition-colors"
+              >
+                <MapPin size={18} /> Visit Us
+              </a>
             </div>
-          </FadeUp>
-        </div>
+          </div>
+        </FadeUp>
 
         {/* Education & Outreach */}
         <div className="mt-24">
