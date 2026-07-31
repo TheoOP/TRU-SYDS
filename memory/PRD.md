@@ -1,38 +1,33 @@
-# PRD — TRU SYDS LLC Theatre Arts (3D Interactive Site)
+# TRU SYDS LLC — Product Requirements Doc
 
 ## Original Problem Statement
-Dynamic, 3D interactive webpage for TRU SYDS LLC (African theatre arts organization). Responsive on web + mobile. Include Adinkra symbols tied to power & authority, showcase both stage and video (short-episode) production, feature the upcoming event "In the Heart of the Cross". Address: 1196 Deansway Dr, Pataskala, OH 43062. Contact: 703-475-5322.
+Dynamic, 3D interactive website for TRU SYDS LLC (African theatre arts organization). Must work on web + mobile. Feature Adinkra symbols of power & authority, both Stage and Video (short episode) productions, upcoming event "In the Heart of the Cross". Address: 1196 Deansway Dr, Pataskala, OH 43062. Phone: 703-475-5322.
 
 ## User Choices
-- 3D hero: orbitable "spotlight stage" scene (React Three Fiber) with glowing golden cross.
+- 3D hero: orbitable "spotlight stage" scene (react-three-fiber) with glowing cross.
 - Backend: Contact form + Newsletter signup saved to MongoDB.
-- Payments: Stripe (claimable sandbox, Flow A, test mode) for tickets + donations.
-- Video: placeholders (swap later).
-- Primary address: Pataskala, OH.
-- Art direction: Awwwards-level — kinetic hero, masked line reveals, framer-motion + lenis, numbered manifesto, editorial marquee.
+- Payments: Stripe (claimable sandbox, test mode) for $30 tickets + donations.
+- Video: placeholders (no real links yet).
+- Art direction: award-worthy, dark cinematic gold/crimson/cream; Playfair Display + Outfit; framer-motion + Lenis smooth scroll.
 
 ## Architecture
-- Frontend: React (CRA/craco) SPA, framer-motion, lenis smooth scroll, react-three-fiber/drei 3D hero, sonner toasts, Tailwind. Dark cinematic gold/crimson/cream theme (Playfair Display + Outfit).
-- Backend: FastAPI + Motor (MongoDB). Routes under /api. Stripe raw SDK Flow A.
-- Collections: contact_messages, newsletter_subscribers, payment_transactions.
+- Frontend: React (CRA), single-page scroll + /payment/success, /payment/cancel routes. Sections: Hero(3D), Marquee, Manifesto/About, WhatWeDo (Stage/Video tabs), AdinkraSection, FeaturedEvent (tickets), GetInvolved (donations + newsletter + outreach), Contact, Footer.
+- Backend: FastAPI, all routes /api prefixed. Collections: contact_messages, newsletter_subscribers, payment_transactions.
+- Stripe Flow A (claimable sandbox). Catalog lookup keys: ticket_hotc, donate_25/50/100/250. Plain checkout (no tax) — mode=payment.
 
 ## Implemented (2026-07-31)
-- 3D orbitable spotlight-stage hero with glowing cross, dust, spotlights, rotating Adinkra watermark.
-- Kinetic masked headline, marquee, numbered manifesto (Mission/Vision/Craft) + Core Values grid.
-- What We Do: Stage productions + Video short-episode grid (tabs).
-- Adinkra "Power & Authority" interactive section (Adinkrahene, Dwennimmen, Gye Nyame, Akoben).
-- Featured event "In the Heart of the Cross" with qty selector + Stripe ticket checkout ($30).
-- Get Involved: donation tiers ($25/$50/$100/$250) via Stripe, newsletter signup, ways to engage, Education & Outreach.
-- Contact form (DB-saved) with address/phone; Footer.
-- Payment success (polls status) + cancel pages.
-- Testing: backend 6/6 + all frontend flows PASS (iteration_1).
-
-## Tax mode
-Stripe checkout runs without automatic tax (plain payment) — reliable in claimable sandbox. Can switch to Stripe-calculates or fully-managed later on request.
+- Full site build with 3D spotlight-stage hero (orbit, dust, spotlights, glowing cross + halo).
+- Authentic Adinkra vectors (Wikimedia): Adinkrahene, Dwennimmen, Gye Nyame, Ohene Aniwa — interactive detail panel.
+- Stage productions + Video short-episode grid (placeholders), numbered manifesto chapters, core values, education & outreach.
+- Stripe ticket purchase (qty stepper) + donation tiers → hosted checkout; payment success/cancel pages with status polling.
+- Contact form + newsletter signup (DB-saved, idempotent newsletter).
+- framer-motion scroll reveals + Lenis smooth scroll; film grain; responsive.
+- Bug fixes: authentic Adinkra shapes; mobile hero legibility (stronger scrim + smaller/dimmer/raised cross); RevealLine headings fixed (were stuck hidden); JSX unicode-escape text fixed.
+- Testing: iteration_2.json — backend 100%, frontend 100%.
 
 ## Backlog / Next
-- P1: Real video embeds (YouTube/Vimeo) for episodes.
-- P1: Admin view for contact messages / subscribers.
-- P2: Custom donation amount field.
-- P2: Add multi-date/session ticket selection.
-- P2: Blog / press page.
+- P1: Real video episode links (YouTube/Vimeo embeds) when available.
+- P1: Claim Stripe account (onboarding_url) to go live.
+- P2: Admin view for contact messages / subscribers.
+- P2: Event ticket confirmation email (Resend).
+- P2: Gallery of production photos.
