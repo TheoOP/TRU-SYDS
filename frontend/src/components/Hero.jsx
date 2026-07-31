@@ -20,7 +20,7 @@ export default function Hero() {
 
       {/* vignette + gradient for legibility */}
       <div className="absolute inset-0 z-10 pointer-events-none"
-        style={{ background: "radial-gradient(ellipse at 50% 40%, transparent 30%, rgba(10,10,10,0.55) 78%), linear-gradient(to bottom, rgba(10,10,10,0.6) 0%, transparent 25%, transparent 60%, #0A0A0A 100%)" }} />
+        style={{ background: "radial-gradient(ellipse at 50% 32%, transparent 22%, rgba(10,10,10,0.45) 72%), linear-gradient(to bottom, rgba(10,10,10,0.55) 0%, transparent 20%, rgba(10,10,10,0.4) 42%, rgba(10,10,10,0.86) 64%, #0A0A0A 90%)" }} />
 
       {/* rotating adinkra watermark */}
       <motion.div
@@ -40,7 +40,7 @@ export default function Hero() {
           <span className="w-10 h-px bg-[#D4AF37]" /> African Theatre Arts
         </motion.p>
 
-        <h1 className="font-display font-black text-[#F5F2EB] tracking-tighter leading-[0.86] text-6xl sm:text-7xl md:text-8xl lg:text-[8.5vw]">
+        <h1 className="font-display font-black text-[#F5F2EB] tracking-tighter leading-[0.86] text-6xl sm:text-7xl md:text-8xl lg:text-[8.5vw] [text-shadow:0_2px_40px_rgba(0,0,0,0.65)]">
           <MaskLines lines={["Empowering Voices."]} delay={0.5} />
           <MaskLines lines={["Celebrating Culture."]} delay={0.68} className="text-[#D4AF37]" />
           <span className="italic font-medium">
