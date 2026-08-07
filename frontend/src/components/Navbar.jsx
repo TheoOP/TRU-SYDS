@@ -41,12 +41,24 @@ export default function Navbar() {
           <button
             onClick={() => scrollTo("top")}
             data-testid="logo-btn"
-            className="flex flex-col items-start leading-none group"
+            className="flex items-center gap-2.5 sm:gap-3 group"
           >
-            <span className="font-display text-xl sm:text-2xl font-black tracking-tight text-[#F5F2EB]">
-              TRU <span className="text-[#D4AF37]">SYDS</span>
+            {/* Mask-only mark, transparent. The film strips and sprockets are
+                stripped from this variant — at ~40px they alias to a smear, and
+                the black would be invisible on the bar anyway. */}
+            <img
+              src={`${process.env.PUBLIC_URL}/logo-mark.png`}
+              alt=""
+              aria-hidden="true"
+              draggable={false}
+              className="h-9 sm:h-10 w-auto shrink-0 select-none"
+            />
+            <span className="flex flex-col items-start leading-none">
+              <span className="font-display text-xl sm:text-2xl font-black tracking-tight text-[#F5F2EB]">
+                TRU <span className="text-[#D4AF37]">SYDS</span>
+              </span>
+              <span className="text-[9px] tracking-[0.4em] text-[#A09C95] uppercase mt-0.5">Theatre Arts</span>
             </span>
-            <span className="text-[9px] tracking-[0.4em] text-[#A09C95] uppercase mt-0.5">Theatre Arts</span>
           </button>
 
           <nav className="hidden lg:flex items-center gap-9">
@@ -102,7 +114,16 @@ export default function Navbar() {
               className="pointer-events-none select-none absolute -bottom-12 -right-16 w-[85vw] max-w-[420px] opacity-[0.16] saturate-[0.5] mix-blend-screen"
             />
             <div className="relative h-[72px] flex items-center justify-between px-5">
-              <span className="font-display text-2xl font-black text-[#F5F2EB]">TRU <span className="text-[#D4AF37]">SYDS</span></span>
+              <span className="flex items-center gap-2.5">
+                <img
+                  src={`${process.env.PUBLIC_URL}/logo-mark.png`}
+                  alt=""
+                  aria-hidden="true"
+                  draggable={false}
+                  className="h-9 w-auto shrink-0 select-none"
+                />
+                <span className="font-display text-2xl font-black text-[#F5F2EB]">TRU <span className="text-[#D4AF37]">SYDS</span></span>
+              </span>
               <button onClick={() => setOpen(false)} data-testid="menu-close-btn" className="text-[#F5F2EB] p-2" aria-label="Close menu">
                 <X size={28} />
               </button>
