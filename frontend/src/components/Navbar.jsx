@@ -88,16 +88,26 @@ export default function Navbar() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[70] bg-[#0A0A0A] flex flex-col"
+            className="fixed inset-0 z-[70] bg-[#0A0A0A] flex flex-col overflow-hidden"
             data-testid="mobile-menu"
           >
-            <div className="h-[72px] flex items-center justify-between px-5">
+            {/* Mobile gets its brand moment here rather than in the 72px bar, where
+                the film-strip detail would alias away. `screen` on #0A0A0A drops the
+                black, leaving the mask faces ghosted behind the links. */}
+            <img
+              src={`${process.env.PUBLIC_URL}/logo.png`}
+              alt=""
+              aria-hidden="true"
+              draggable={false}
+              className="pointer-events-none select-none absolute -bottom-12 -right-16 w-[85vw] max-w-[420px] opacity-[0.16] saturate-[0.5] mix-blend-screen"
+            />
+            <div className="relative h-[72px] flex items-center justify-between px-5">
               <span className="font-display text-2xl font-black text-[#F5F2EB]">TRU <span className="text-[#D4AF37]">SYDS</span></span>
               <button onClick={() => setOpen(false)} data-testid="menu-close-btn" className="text-[#F5F2EB] p-2" aria-label="Close menu">
                 <X size={28} />
               </button>
             </div>
-            <nav className="flex-1 flex flex-col justify-center gap-2 px-8">
+            <nav className="relative flex-1 flex flex-col justify-center gap-2 px-8">
               {LINKS.map((l, i) => (
                 <motion.button
                   key={l.id}

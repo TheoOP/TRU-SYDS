@@ -48,9 +48,29 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-16 pt-8 border-t border-[rgba(212,175,55,0.12)] flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-sm text-[#6b665e]">&copy; {new Date().getFullYear()} TRU SYDS LLC. All rights reserved.</p>
-          <p className="text-sm text-[#6b665e] font-display italic">&ldquo;Empowering Voices. Celebrating Culture. Inspiring Change.&rdquo;</p>
+        <div className="mt-16 pt-8 border-t border-[rgba(212,175,55,0.12)] flex flex-col sm:flex-row items-center justify-between gap-8 sm:gap-6">
+          <div className="flex flex-col sm:flex-row items-center gap-5 sm:gap-6">
+            {/* Company seal. The logo is drawn for white, so it sits on the site's
+                own cream token — same treatment as public/og-image.png. */}
+            <span
+              data-testid="footer-seal"
+              className="shrink-0 rounded-2xl bg-[#F5F2EB] ring-1 ring-[#D4AF37]/25 gold-glow p-4"
+            >
+              <img
+                src={`${process.env.PUBLIC_URL}/logo.png`}
+                alt=""
+                aria-hidden="true"
+                width={354}
+                height={354}
+                loading="lazy"
+                decoding="async"
+                draggable={false}
+                className="block h-16 w-16 sm:h-20 sm:w-20 select-none"
+              />
+            </span>
+            <p className="text-sm text-[#6b665e] text-center sm:text-left">&copy; {new Date().getFullYear()} TRU SYDS LLC. All rights reserved.</p>
+          </div>
+          <p className="text-sm text-[#6b665e] font-display italic text-center sm:text-right">&ldquo;Empowering Voices. Celebrating Culture. Inspiring Change.&rdquo;</p>
         </div>
       </div>
     </footer>

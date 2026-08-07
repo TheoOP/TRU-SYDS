@@ -26,8 +26,21 @@ const EPISODES = [
 export default function WhatWeDo() {
   const [tab, setTab] = useState("stage");
   return (
-    <section id="work" className="relative py-24 md:py-36 px-5 sm:px-8 bg-[#0C0B0A]">
-      <div className="max-w-[1400px] mx-auto">
+    <section id="work" className="relative py-24 md:py-36 px-5 sm:px-8 bg-[#0C0B0A] overflow-hidden">
+      {/* Logo as section watermark. On #0C0B0A, `screen` blending drops every black
+          pixel — strips, drop shadow, and the baked "TRU SYDS LLC" — leaving only
+          the two mask faces and the sprocket perforations. Mirrors the Hero's
+          rotating Adinkrahene. Desktop only: at 360px there is no free column. */}
+      <motion.img
+        src={`${process.env.PUBLIC_URL}/logo.png`}
+        alt=""
+        aria-hidden="true"
+        draggable={false}
+        animate={{ y: [0, -18, 0] }}
+        transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
+        className="pointer-events-none select-none absolute z-0 hidden md:block -right-24 lg:-right-32 top-28 lg:top-36 w-[46vw] max-w-[620px] opacity-[0.13] saturate-[0.55] mix-blend-screen"
+      />
+      <div className="max-w-[1400px] mx-auto relative">
         <FadeUp>
           <p className="flex items-center gap-3 text-xs tracking-[0.4em] uppercase text-[#D4AF37] mb-6">
             <span className="w-10 h-px bg-[#D4AF37]" /> What We Do
