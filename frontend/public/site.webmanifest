@@ -1,0 +1,15 @@
+{
+  "name": "TRU SYDS — African Theatre Arts",
+  "short_name": "TRU SYDS",
+  "description": "An African theatre arts organization uplifting African and African American stories through powerful stage and screen performance.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "theme_color": "#0A0A0A",
+  "background_color": "#0A0A0A",
+  "icons": [
+    { "src": "./icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "./icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "./apple-touch-icon.png", "sizes": "180x180", "type": "image/png" }
+  ]
+}
